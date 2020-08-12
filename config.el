@@ -70,11 +70,18 @@
 (global-set-key [f8] 'deft); open Deft with F8
 (global-set-key (kbd "C-x C-g") 'deft-new-file)
 
+;;-------------------
+;; auto save files.
+;; source: http://ergoemacs.org/emacs/emacs_auto_save.html
+(defun xah-save-all-unsaved ()
+  "Save all unsaved files. no ask.
+Version 2019-11-05"
+  (interactive)
+  (save-some-buffers t ))
 
-;; Fonts
-;;(setq myfont "Input")
-(setq myfont "monospace")
+;; when switching out of emacs, all unsaved files will be saved
+(add-hook 'focus-out-hook 'xah-save-all-unsaved)
 
-;; Implement the active font
-(set-face-attribute 'default nil :font myfont :height 180)
-
+;; stop creating those #auto-save# files
+(setq auto-save-default nil)
+;;-------------------
